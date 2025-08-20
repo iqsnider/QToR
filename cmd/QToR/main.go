@@ -6,10 +6,12 @@ import (
 )
 
 func main() {
-	nx := 100
-	ny := 100
+	nx := 5
+	ny := 5
 	lx := 0.02
 	ly := 0.02
 	solver := pde_solvers.NewHelmholtzSolver(nx, ny, lx, ly)
-	fmt.Println(solver)
+
+	numericModes := solver.SolveWaveguideModes(6)
+	fmt.Println(numericModes)
 }
