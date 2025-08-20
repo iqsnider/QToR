@@ -64,7 +64,7 @@ func (hs *HelmholtzSolver) SolveWaveguideModes(numModes int) []WaveguideMode {
 				A[row][col] = 1.0 / dy2
 			}
 
-			if j < hs.Nx-2 {
+			if j < hs.Ny-2 {
 				col := (j)*(hs.Nx-2) + (i - 1)
 				A[row][col] = 1.0 / dy2
 			}

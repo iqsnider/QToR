@@ -12,6 +12,6 @@ func main() {
 	ly := 0.02
 	solver := pde_solvers.NewHelmholtzSolver(nx, ny, lx, ly)
 
-	numericModes := solver.SolveWaveguideModes(6)
+	numericModes := solver.SolveWaveguideModes(2)
 	fmt.Println(numericModes)
 }
