@@ -118,30 +118,39 @@ func (hs *HelmholtzSolver) powerIteration(A [][]float64, maxIter int, tolerance 
 
 	y := make([]float64, n)
 	for iter := 0; iter < maxIter; iter++ {
+		// A*x
 		for i := 0; i < n; i++ {
+			y[i] = 0.0
 			for j := 0; j < n; j++ {
 				y[i] += A[i][j] * x[j]
 			}
-
-			numerator, denominator := 0.0, 0.0
-			for i := 0; i < n; i++ {
-				numerator += x[i] * y[i]
-				denominator += x[i] * x[i]
-			}
-
-			lambda = numerator / denominator
-
-			// normalize
-			norm := math.Sqrt(denominator)
-			for i := 0; i < n; i++ {
-				x[i] = y[i] / norm
-			}
-
-			if iter > 0 && math.Abs(lambda-lambdaOld) < tolerance {
-				break
-			}
-			lambdaOld = lambda
 		}
+
+		// rayleigh quotient
+		numerator := 0.0
+		denominator := 0.0
+		for i := 0; i < n; i++ {
+			numerator += x[i] * y[i]
+			denominator += x[i] * x[i]
+		}
+		lambda = numerator / denominator
+
+		// normalize y
+		norm := 0.0
+		for i := 0; i < n; i++ {
+			norm += y[i] * y[i]
+		}
+		norm = math.Sqrt(norm)
+
+		for i := 0; i < n; i++ {
+			x[i] = y[i] / norm
+		}
+
+		// does convergence
+		if iter > 0 && math.Abs(lambda-lambdaOld) < tolerance {
+			break
+		}
+		lambdaOld = lambda
 	}
 	return lambda, x
 }
