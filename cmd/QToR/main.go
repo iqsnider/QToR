@@ -11,13 +11,13 @@ func printMode(mode pde_solvers.WaveguideMode, modeNum int) {
 	for j := len(field) - 1; j >= 0; j-- {
 		for i := 0; i < len(field[j]); i++ {
 			val := field[j][i]
-			if val > 0.5 {
+			if val > 0.1 {
 				fmt.Print(" + ")
-			} else if val < -0.5 {
-				fmt.Print(" - ")
-			} else if val > 0.1 {
-				fmt.Print(" . ")
 			} else if val < -0.1 {
+				fmt.Print(" - ")
+			} else if val > 0.01 {
+				fmt.Print(" . ")
+			} else if val < -0.01 {
 				fmt.Print(" , ")
 			} else {
 				fmt.Print("   ")
@@ -34,7 +34,7 @@ func main() {
 	ly := 0.02
 	solver := pde_solvers.NewHelmholtzSolver(nx, ny, lx, ly)
 
-	numericModes := solver.SolveWaveguideModes(2)
+	numericModes := solver.SolveWaveguideModes(5)
 	for i, mode := range numericModes {
 		printMode(mode, i+1)
 	}
