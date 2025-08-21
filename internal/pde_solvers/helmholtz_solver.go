@@ -160,7 +160,7 @@ func (hs *HelmholtzSolver) deflateMatrix(A [][]float64, eigvec []float64, eigval
 
 	for i := 0; i < n; i++ {
 		for j := 0; j < n; j++ {
-			A[i][j] -= eigval * eigvec[i] * eigvec[i]
+			A[i][j] -= eigval * eigvec[i] * eigvec[j]
 		}
 	}
 }
